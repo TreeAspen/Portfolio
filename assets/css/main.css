@@ -1979,6 +1979,10 @@ input, select, textarea {
 /* Features */
 
 	.features {
+		display: flex;
+		flex-direction: column;
+		align-items: left; /* 让子元素居中 */
+		gap: 20px;
 		display: -moz-flex;
 		display: -webkit-flex;
 		display: -ms-flex;
