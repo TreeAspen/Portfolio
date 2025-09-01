@@ -19,20 +19,22 @@
             margin: 10px;
         }
 
-        .button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
+		.button {
+			padding: 10px 20px;
+			background-color: #694de5;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			text-decoration: none;
+			display: inline-flex;        /* 改成 flex 布局 */
+			justify-content: center;     /* 水平居中 */
+			align-items: center;         /* 垂直居中 */
+			transition: all 0.3s ease;
+		}
+		.button:hover {
+			background-color: #303582;
+		}
 
-        .button:hover {
-            background-color: #0056b3;
-        }
 
 		#sidebar {
 			position: fixed;
@@ -105,12 +107,21 @@
 				margin: 0 10px;
 			}
 		}
+		
+		.features {
+			display: flex;
+			flex-direction: column; /* 改为纵向排列 */
+			gap: 20px; /* 保持卡片间距 */
+		}
+
 
 
         .skill-card .content ul {
-            padding-left: 20px;
-            margin: 0;
-        }
+			list-style-type: disc; /* 圆点 */
+			padding-left: 20px;
+			margin: 10px 0;
+		}
+
 
         @media (max-width: 768px) {
             body {
@@ -241,10 +252,10 @@
 				<a href="#" class="image"><img src="images/image1.png" alt="" data-position="top center" /></a>
 				<div class="content">
 					<div class="inner">
-						<h2>Invisible Barriers in New York's Urban Oases</h2>
-						<p>In the bustling city of New York, parks and green spaces serve as urban oases for residents. However, these seemingly open spaces often contain invisible barriers that shape accessibility and usage patterns among different social groups. This project explores the hidden obstacles within New York's urban green spaces, examining factors such as urban planning, socioeconomic disparities, and policy regulations. Through data visualization, it highlights issues of spatial equity and encourages reflection on how to create more inclusive urban environments.</p>
+						<h2>Economic Toll of Flooding: Florida Case Study</h2>
+						<p>This project predicts flood risk and economic losses in Florida using GIS and machine learning. By integrating physical, demographic, and socioeconomic data, we model flood vulnerability and economic impact at the census tract level.</p>
 						<ul class="actions">
-							<li><a href="https://storymaps.arcgis.com/stories/8a522410302e41efb35f07c31d807997/print" class="button" target="_blank">Learn more</a></li>
+							<li><a href="https://arcg.is/1nrHCf1" class="button" target="_blank">Learn more</a></li>
 						</ul>
 					</div>
 				</div>
@@ -281,72 +292,75 @@
 			</section>
 		</section>
 		
-		<!-- Two -->
-		<section id="two" class="wrapper style3 fade-up">
-			<div class="inner">
-				<h2>What I do</h2>
-				<div class="features">
-					<!-- Design Expertise -->
-					<section class="skill-card">
-						<div class="icon-wrapper">
-							<span class="icon solid major fa-pencil-ruler"></span>
-						</div>
-						<h3>Design Expertise</h3>
-						<div class="content">
-							<li>UI/UX design, branding, visual identity</li>
-							<li>Figma,Adobe Suite,Cinema 4D</li>
-						</div>
-					</section>
-		
-					<!-- Technical Proficiency -->
-					<section class="skill-card">
-						<div class="icon-wrapper">
-							<span class="icon solid major fa-chart-line"></span>
-						</div>
-						<h3>Technical Proficiency</h3>
-						<div class="content">
-							<ul class="metric-list">
-							<li>ML development, geospatial analysis, and data visualization</li>
-							<li>Languages:Python, JavaScript</li>
-							<li>Tools:ArcGIS, OpenAI API</li>
-						</div>
-					</section>
-		
-					<!-- User Research -->
-					<section class="skill-card">
-						<div class="icon-wrapper">
-							<span class="icon solid major fa-chart-bar"></span>
-						</div>
-						<h3>User Research & Analytics</h3>
-						<div class="content">
-							<ul class="metric-list">
-								<li>50+ usability tests conducted</li>
-								<li>1,000+ market data points analyzed</li>
-						</div>
-					</section>
-				</div>
-			</section>
-		</div>
-	</section>
-		<!-- Three -->
-		<section id="three" class="wrapper style1 fade-up">
-			<div class="inner">
-				<h2>Get in touch</h2>
-				<section>
-					<ul class="contact">
-						<li>
-							<h3>Email</h3>
-							<a href="#">sy4254@nyu.edu</a>
-						</li>
-						<li>
-							<h3>Phone</h3>
-							<span>(929) 616-4129</span>
-						</li>
-					</ul>
-				</section>
-			</div>
-		</section>
-	</div>
+<!-- Two -->
+<section id="two" class="wrapper style3 fade-up">
+    <div class="inner">
+        <h2>What I do</h2>
+        <div class="features">
+            <!-- Design Expertise -->
+            <section class="skill-card">
+                <div class="icon-wrapper">
+                    <span class="icon solid major fa-pencil-ruler"></span>
+                </div>
+                <h3>Design Expertise</h3>
+                <div class="content">
+                    <ul>
+                        <li>UI/UX design, branding, visual identity</li>
+                        <li>Figma, Adobe Suite, Cinema 4D</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Technical Proficiency -->
+            <section class="skill-card">
+                <div class="icon-wrapper">
+                    <span class="icon solid major fa-chart-line"></span>
+                </div>
+                <h3>Technical Proficiency</h3>
+                <div class="content">
+                    <ul class="metric-list">
+                        <li>ML development, geospatial analysis, and data visualization</li>
+                        <li>Languages: Python, JavaScript</li>
+                        <li>Tools: ArcGIS, OpenAI API</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- User Research -->
+            <section class="skill-card">
+                <div class="icon-wrapper">
+                    <span class="icon solid major fa-chart-bar"></span>
+                </div>
+                <h3>User Research & Analytics</h3>
+                <div class="content">
+                    <ul class="metric-list">
+                        <li>50+ usability tests conducted</li>
+                        <li>1,000+ market data points analyzed</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!-- Three -->
+<section id="three" class="wrapper style1 fade-up">
+    <div class="inner">
+        <h2>Get in touch</h2>
+        <section>
+            <ul class="contact">
+                <li>
+                    <h3>Email</h3>
+                    <a href="mailto:sy4254@nyu.edu">sy4254@nyu.edu</a>
+                </li>
+                <li>
+                    <h3>Phone</h3>
+                    <span>(929) 616-4129</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+</section>
 
 	<!-- Footer -->
 	<footer id="footer" class="wrapper style1-alt">
