@@ -14,7 +14,7 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #1e222a;
+            background-color: #28233f; /* Updated to a bluish-purple */
             color: rgba(255, 255, 255, 0.75);
             margin: 0;
             overflow-x: hidden;
@@ -37,7 +37,7 @@
             left: 0;
             width: 20em;
             height: 100%;
-            background: rgba(18, 20, 24, 0.95);
+            background: rgba(25, 22, 43, 0.95); /* Adjusted sidebar background */
             padding: 2em;
             color: #ffffff;
             z-index: 10001;
@@ -70,6 +70,7 @@
         #sidebar nav a:hover { background-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
         #sidebar nav a.active { background-color: #a369ff; color: #ffffff; font-weight: 700; }
         .links ul { list-style: none; padding: 1.5rem 0 0 0; margin: 1.5rem 0 0 0; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .links ul li { margin-bottom: 0.5rem; } /* Increased spacing for sidebar links */
         
         /* Intro Links */
         .intro-actions {
@@ -85,7 +86,7 @@
 
         /* Content Sections */
         .wrapper { padding: 4em 3em; }
-        .wrapper.style1 { background-color: #2e3141; }
+        .wrapper.style1 { background-color: #3a335c; } /* Updated section background */
         .wrapper.style2 { background-color: transparent; }
         .inner { max-width: 75em; margin: 0 auto; }
 
@@ -104,7 +105,7 @@
 
         /* Features (Skills) */
         .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; }
-        .feature { background: rgba(46, 49, 65, 0.5); padding: 2em; border-radius: 8px; text-align: left; }
+        .feature { background: rgba(80, 71, 117, 0.5); padding: 2em; border-radius: 8px; text-align: left; }
         .feature .icon { font-size: 2.5rem; color: #a369ff; margin-bottom: 1rem; }
         .feature ul { list-style: disc; padding-left: 20px; text-align: left; color: rgba(255, 255, 255, 0.7); }
 
@@ -113,21 +114,23 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.25); /* 25% white background for normal state */
+            background-color: rgba(255, 255, 255, 0.25);
             color: #ffffff;
             padding: 10px 20px;
             border-radius: 4px;
             font-weight: 700;
-            transition: all 0.3s ease;
-            border: 2px solid transparent; /* Keep space for hover border */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border: 1px solid transparent; /* Reserve space to prevent layout shift */
             cursor: pointer;
             text-decoration: none;
+            position: relative;
         }
         .button:hover {
             background-color: #303582b0;
             color: #ffffff;
-            border: 2px solid rgba(255, 255, 255, 0.5); /* 50% white border on hover */
+            border-color: rgba(255, 255, 255, 0.5); /* Instantly show border on hover */
         }
+
 
         /* Contact Section */
         #contact .inner { text-align: center; }
@@ -138,7 +141,7 @@
             transition: background-color 0.3s ease;
         }
         #contact .contact-methods > div:hover {
-            background-color: rgba(46, 49, 65, 0.5);
+            background-color: rgba(80, 71, 117, 0.5);
         }
         #contact .contact-methods > div::before,
         #contact .contact-methods > div::after {
