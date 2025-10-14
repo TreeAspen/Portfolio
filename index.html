@@ -231,14 +231,15 @@
                 flex-direction: row; justify-content: space-between; align-items: center;
             }
             #sidebar .inner {
-                display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+                display: flex; flex-direction: row; justify-content: center; align-items: center;
                 width: 100%; padding: 0.75em 1.5em;
+                gap: 1em; /* This creates the consistent spacing */
             }
             #sidebar nav {
-                flex-grow: 1;
+                /* No flex-grow needed */
             }
             #sidebar nav ul {
-                display: flex; flex-direction: row; justify-content: center; gap: 1em;
+                display: flex; flex-direction: row; gap: 1em;
             }
             .links, #sidebar .branding {
                 display: none;
@@ -269,9 +270,11 @@
             }
             #sidebar .inner {
                 padding: 0.75em 1em;
+                justify-content: space-between; /* Revert for smallest screens */
             }
             #sidebar nav ul {
                 justify-content: flex-start;
+                gap: 0.5em;
             }
         }
     </style>
@@ -290,11 +293,11 @@
             </div>
             <nav id="nav-links">
                 <ul>
-                    <li><a href="#intro"><i class="far fa-address-card fa-fw"></i><span class="nav-text"> About Me</span></a></li>
+                    <li><a href="#intro"><i class="far fa-address-card fa-fw"></i><span class="nav-text"> Introduce</span></a></li>
                     <li><a href="#one"><i class="far fa-folder-open fa-fw"></i><span class="nav-text"> Projects</span></a></li>
                     <li><a href="#two"><i class="fas fa-laptop-code fa-fw"></i><span class="nav-text"> Skills</span></a></li>
                     <li><a href="#contact"><i class="far fa-envelope fa-fw"></i><span class="nav-text"> Contact</span></a></li>
-                    <li><a href="gallery.html"><i class="fas fa-palette fa-fw"></i><span class="nav-text"> Art Gallery</span></a></li>
+                    <li><a href="gallery.html"><i class="fas fa-palette fa-fw"></i><span class="nav-text">Gallery</span></a></li>
                 </ul>
             </nav>
             <div class="links">
@@ -341,7 +344,7 @@
                             <span class="keyword-tag">AI</span> <span class="keyword-tag">HealthTech</span> <span class="keyword-tag">Sleep Science</span> <span class="keyword-tag">FHIR</span> <span class="keyword-tag">RAG</span>
                         </div>
                         <p>An AI-driven sleep assistant providing personalized, science-backed guidance using FHIR and RAG. It features a self-assessment quiz and intelligent analysis based on EHR data to improve sleep quality while ensuring privacy.</p>
-                        <a href="project_1.html" class="button">Learn more</a>
+                        <a href="project1.html" class="button">Learn more</a>
                     </div>
                 </section>
                 <section class="spotlight fade-in-section">
