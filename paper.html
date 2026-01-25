@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeurIPS 2025 Spotlight | Shu Yang</title>
+    <!-- Google Fonts and Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables - Matching Main Theme */
+        :root {
+            --bg-primary: #28233f;
+            --bg-secondary: #3a335c;
+            --bg-sidebar: rgba(25, 22, 43, 0.95);
+            --bg-feature: rgba(80, 71, 117, 0.5);
+            --bg-button: rgba(255, 255, 255, 0.25);
+            --bg-button-hover: #303582b0;
+            --bg-keyword: rgba(255, 255, 255, 0.1);
+            --text-primary: rgba(255, 255, 255, 0.75);
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-headings: #ffffff;
+            --text-button: #ffffff;
+            --accent-primary: #a369ff;
+            --accent-gold: #ffd700;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+            --border-divider: rgba(255, 255, 255, 0.15);
+        }
+
+        body.light-mode {
+            --bg-primary: #f4f7f9;
+            --bg-secondary: #ffffff;
+            --bg-feature: #ffffff;
+            --bg-button: rgba(105, 77, 229, 0.15);
+            --bg-button-hover: #5038b3;
+            --bg-keyword: #eef2ff;
+            --text-primary: #5f6c7b;
+            --text-secondary: #4a5568;
+            --text-headings: #1d2d35;
+            --text-button: #4338ca;
+            --accent-primary: #694de5;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --border-divider: #e2e8f0;
+        }
+
+        /* Base and Reset */
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3 { color: var(--text-headings); font-weight: 700; margin-top: 0; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { display: block; max-width: 100%; height: auto; }
+
+        /* Navigation */
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-sidebar);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-divider);
+        }
+
+        .back-btn {
+            color: var(--text-headings);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .back-btn:hover { color: var(--accent-primary); }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .project-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* Updated Badge Style: Softer, Glowing, Glassmorphism */
+        .badge-neurips {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1); /* 极淡的金色背景 */
+            color: #ffd700; /* 金色文字 */
+            border: 1px solid rgba(255, 215, 0, 0.4); /* 柔和的边框 */
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px; /* 胶囊形状，更柔和 */
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            /* 复合阴影制造发光感 */
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.15), 
+                        inset 0 0 10px rgba(255, 215, 0, 0.05);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 悬停时的光效增强 */
+        .badge-neurips:hover {
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.3), 
+                        inset 0 0 15px rgba(255, 215, 0, 0.1);
+            transform: translateY(-2px);
+            color: #fff;
+            border-color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+
+        .project-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        /* Cover Image */
+        .hero-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-divider);
+        }
+
+        /* Content Section */
+        .content-section {
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .content-section h2 {
+            border-bottom: 2px solid var(--border-divider);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .research-text p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        .core-components-list {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            list-style: none;
+        }
+        .core-components-list li {
+            position: relative;
+            margin-bottom: 0.8rem;
+            padding-left: 1rem;
+        }
+        .core-components-list li::before {
+            content: "\f058"; /* FontAwesome check-circle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-primary);
+            position: absolute;
+            left: -1.5rem;
+            top: 0.1em;
+        }
+
+        /* My Contribution Block */
+        .role-highlight {
+            border-left: 4px solid var(--accent-primary);
+            padding-left: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            font-style: italic;
+            background: var(--bg-keyword);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Gallery */
+        .gallery-item {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.01);
+        }
+
+        .caption {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .caption strong {
+            color: var(--accent-primary);
+        }
+
+        /* Footer Links */
+        .footer-links {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-divider);
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            background: var(--bg-button);
+            color: var(--text-button);
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 0 10px;
+            border: 1px solid transparent;
+        }
+        .btn-primary:hover {
+            background: var(--bg-button-hover);
+            color: white;
+        }
+
+        /* Theme Toggle */
+        .theme-switch-wrapper { display: flex; align-items: center; }
+        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #4a426b; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 34px; }
+        .slider:before { background-color: #fff; bottom: 4px; content: ""; height: 18px; left: 4px; position: absolute; transition: .4s; width: 18px; border-radius: 50%; }
+        input:checked + .slider { background-color: #ccc; }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-hero h1 { font-size: 1.8rem; }
+            .content-section { padding: 1.5rem; }
+            header { padding: 1rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider"></span>
+            </label>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="project-hero">
+            <span class="badge-neurips">NeurIPS 2025 Spotlight</span>
+            <h1>Abstain Mask Retain Core: Time Series Prediction by Adaptive Masking Loss</h1>
+            <div class="project-meta">
+                <span><i class="fas fa-map-marker-alt"></i> San Diego, CA</span>
+                <span><i class="fas fa-calendar-alt"></i> 2025</span>
+                <span><i class="fas fa-layer-group"></i> Visualization & Machine Learning</span>
+            </div>
+            <!-- Cover Image (Paper 1) -->
+            <img src="images/paper1.png" alt="Project Cover" class="hero-image">
+        </section>
+
+        <!-- Project Overview -->
+        <section class="content-section">
+            <h2>About the Research</h2>
+            
+            <div class="research-text">
+                <p>
+                    Time series forecasting plays a pivotal role in critical domains such as energy management and financial markets. Although deep learning-based approaches (e.g., MLP, RNN, Transformer) have achieved remarkable progress, the prevailing "long-sequence information gain hypothesis" exhibits inherent limitations. Through systematic experimentation, this study reveals a counterintuitive phenomenon: appropriately truncating historical data can paradoxically enhance prediction accuracy. This indicates that existing models learn substantial redundant features (e.g., noise or irrelevant fluctuations) during training, thereby compromising effective signal extraction.
+                </p>
+                <p>
+                    Building upon information bottleneck theory, we propose an innovative solution termed <strong>Adaptive Masking Loss with Representation Consistency (AMRC)</strong>, which features two core components:
+                </p>
+                <ul class="core-components-list">
+                    <li><strong>Dynamic Masking Loss:</strong> Adaptively identifies highly discriminative temporal segments to guide gradient descent during model training.</li>
+                    <li><strong>Representation Consistency Constraint:</strong> Stabilizes the mapping relationships among inputs, labels, and predictions.</li>
+                </ul>
+                <p>
+                    Experimental results demonstrate that AMRC effectively suppresses redundant feature learning while significantly improving model performance. This work not only challenges conventional assumptions in temporal modeling but also provides novel theoretical insights and methodological breakthroughs for developing efficient and robust forecasting models.
+                </p>
+            </div>
+            
+            <div class="role-highlight">
+                <h3><i class="fas fa-pen-fancy" style="margin-right: 10px;"></i>My Contribution</h3>
+                <p>
+                    I was primarily responsible for the <strong>Scientific Visualization</strong> and <strong>Empirical Validation</strong> of the paper. My role involved:
+                </p>
+                <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                    <li>Designing an interpretability framework to visualize high-dimensional manifold geometry.</li>
+                    <li>Illustrating the Stochastic Approximation process to verify the effectiveness of the Embedding Similarity Penalty.</li>
+                    <li>Conducting rigorous ablation studies across diverse datasets to prove the robustness of the model.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Visualization Gallery -->
+        <section class="gallery">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Visual Framework & Results</h2>
+
+            <!-- Paper 2 -->
+            <div class="gallery-item content-section">
+                <img src="images/paper2.png" alt="Model Architecture and Methodology">
+                <div class="caption">
+                    <strong>Figure 1: Methodology Framework.</strong> 
+                    This diagram illustrates the core architecture of the Adaptive Masking Loss mechanism. I designed this flow to clearly communicate how the model differentiates between core signals and noise.
+                </div>
+            </div>
+
+            <!-- Paper 3 -->
+            <div class="gallery-item content-section">
+                <img src="images/paper3.png" alt="Manifold Geometry Visualization">
+                <div class="caption">
+                    <strong>Figure 2: Manifold Geometry & Representation Analysis.</strong> 
+                    Visualization of the latent space geometry. These plots verify that our Embedding Similarity Penalty effectively prevents representation collapse, maintaining distinct and meaningful feature clusters.
+                </div>
+            </div>
+
+            <!-- Paper 4 -->
+            <div class="gallery-item content-section">
+                <img src="images/paper4.png" alt="Ablation Studies and Performance Metrics">
+                <div class="caption">
+                    <strong>Figure 3: Ablation Studies & Performance.</strong> 
+                    A comprehensive comparison across multiple datasets. I conducted these experiments to demonstrate that the model outperforms state-of-the-art baselines and remains robust under various conditions.
+                </div>
+            </div>
+        </section>
+
+        <div class="footer-links">
+            <p>Interested in the technical details?</p>
+            <!-- Replace # with actual paper link -->
+            <a href="https://arxiv.org/abs/2510.19980" class="btn-primary"><i class="far fa-file-pdf"></i> Read Full Paper</a>
+            <a href="mailto:sy4254@nyu.edu" class="btn-primary" style="background: transparent; border: 1px solid var(--accent-primary);"><i class="far fa-envelope"></i> Contact Me</a>
+        </div>
+
+    </div>
+
+    <script>
+        // Simple Theme Switcher Logic (Matches main site)
+        const toggleSwitch = document.querySelector('#theme-toggle');
+        const body = document.body;
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            if (currentTheme === 'light') {
+                body.classList.add('light-mode');
+                toggleSwitch.checked = true;
+            }
+        }
+
+        toggleSwitch.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
