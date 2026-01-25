@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLT Legal AI Assistant | Shu Yang</title>
+    <!-- Google Fonts and Font Awesome for icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            --bg-primary: #28233f;
+            --bg-secondary: #3a335c;
+            --bg-sidebar: rgba(25, 22, 43, 0.95);
+            --bg-feature: rgba(80, 71, 117, 0.5);
+            --bg-button: rgba(255, 255, 255, 0.25);
+            --bg-button-hover: #303582b0;
+            --text-primary: rgba(255, 255, 255, 0.75);
+            --text-headings: #ffffff;
+            --text-button: #ffffff;
+            --accent-primary: #a369ff;
+            --border-button-hover: rgba(255, 255, 255, 0.5);
+            --border-divider: rgba(255, 255, 255, 0.15);
+            --shadow: none;
+        }
+
+        body.light-mode {
+            --bg-primary: #f4f7f9;
+            --bg-secondary: #ffffff;
+            --bg-sidebar: #ffffff;
+            --bg-feature: #ffffff;
+            --bg-button: rgba(105, 77, 229, 0.25);
+            --bg-button-hover: #5038b3;
+            --text-primary: #5f6c7b;
+            --text-headings: #1d2d35;
+            --text-button: #4338ca;
+            --accent-primary: #694de5;
+            --border-button-hover: #694de5;
+            --border-divider: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+
+        /* Base and Reset */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Typography and Links */
+        h1, h2, h3, h4 { color: var(--text-headings); font-weight: 700; line-height: 1.2; margin: 0 0 1rem 0; transition: color 0.3s ease; }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; margin-top: 2.5em; border-bottom: 1px solid var(--border-divider); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        p, ul { margin: 0 0 1rem 0; line-height: 1.7; }
+        ul { padding-left: 20px; }
+        a { color: var(--accent-primary); text-decoration: none; transition: color 0.2s ease; }
+        a:hover { color: var(--text-headings); }
+        
+        /* Header for Subpage */
+        #page-header {
+            position: sticky; top: 0;
+            background: var(--bg-sidebar);
+            padding: 0.75em 1.5em;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease;
+        }
+        #page-header .back-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+            position: relative;
+            padding: 0.5em 0;
+        }
+        #page-header .back-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 1px;
+            background-color: var(--accent-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-out;
+        }
+        #page-header .back-link:hover::after {
+            transform: scaleX(1);
+        }
+        #page-header .back-link .fa-fw {
+            margin-right: 0.5em;
+        }
+        
+        /* Main Content Wrapper */
+        .wrapper { padding: 4em 3em; animation: fadeIn 1s ease-out; }
+        .inner { max-width: 45em; margin: 0 auto; }
+        
+        /* Project Content Styling */
+        .project-content img, .project-content video {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 1em;
+            margin-bottom: 2em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-content img:hover, .project-content video:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px -5px var(--accent-primary);
+            transform-origin: top;
+        }
+
+        /* Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            margin: auto;
+            margin-top: 2em;
+        }
+        .mySlides {
+            display: none;
+        }
+        .mySlides img {
+            border-radius: 8px;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .dots-container {
+            text-align: center;
+            padding-top: 1em;
+        }
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 4px;
+            background-color: var(--bg-feature);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        .dot.active, .dot:hover {
+            background-color: var(--accent-primary);
+        }
+        .slide-fade {
+            animation-name: fade;
+            animation-duration: 0.8s;
+        }
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+
+
+        /* Button styles */
+        .button {
+            display: inline-flex; justify-content: center; align-items: center;
+            background-color: var(--bg-button);
+            color: var(--text-button);
+            padding: 10px 20px; border-radius: 4px; font-weight: 700;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            border: 1px solid transparent; cursor: pointer; text-decoration: none; position: relative;
+        }
+        .button .fa-fw { margin-right: 0.5em; }
+        .button:hover {
+            background-color: var(--bg-button-hover);
+            color: #ffffff;
+            border-color: var(--border-button-hover);
+        }
+        body.light-mode .button:hover {
+             border-color: transparent;
+             color: #ffffff;
+        }
+
+        /* Theme Toggle */
+        .theme-switch-wrapper { display: flex; align-items: center; justify-content: center; }
+        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #4a426b; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
+        .slider:before {
+            content: "\f186"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+            color: #28233f;
+            display: flex; align-items: center; justify-content: center;
+            background-color: #fff; bottom: 4px; height: 18px; left: 4px;
+            position: absolute; width: 18px; transition: .4s;
+        }
+        input:checked + .slider { background-color: #ccc; }
+        input:checked + .slider:before { content: "\f185"; transform: translateX(24px); }
+        .slider.round { border-radius: 34px; }
+        .slider.round:before { border-radius: 50%; }
+
+        /* Animated Background */
+        .background-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .background-shapes li {
+            position: absolute; display: block; list-style: none; width: 20px; height: 20px;
+            background: rgba(163, 105, 255, 0.15); animation: float 25s linear infinite; bottom: -150px;
+        }
+        body.light-mode .background-shapes li { background: rgba(105, 77, 229, 0.1); border: none; }
+        body.light-mode .background-shapes li:nth-child(2), body.light-mode .background-shapes li:nth-child(5), body.light-mode .background-shapes li:nth-child(7), body.light-mode .background-shapes li:nth-child(9) {
+            background: transparent; border: 2px solid rgba(105, 77, 229, 0.15);
+        }
+        .background-shapes li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .background-shapes li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .background-shapes li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .background-shapes li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .background-shapes li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        .background-shapes li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+        
+        /* Animations */
+        @keyframes float { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 736px) {
+            h1 { font-size: 2rem; }
+            .wrapper { padding: 2em 1em; }
+        }
+    </style>
+</head>
+<body>
+    
+    <ul class="background-shapes">
+       <li></li> <li></li> <li></li> <li></li> <li></li>
+       <li></li> <li></li> <li></li> <li></li> <li></li>
+    </ul>
+
+    <!-- Header -->
+    <header id="page-header">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left fa-fw"></i> Back to Home</a>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-toggle">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="wrapper">
+        <div class="inner project-content">
+
+            <h1 class="scroll-fade-in">CLT Legal AI Assistant</h1>
+            <p style="color: var(--text-secondary); margin-top: -0.5rem;" class="scroll-fade-in">A one-day hackathon project that won 1st Place. My role was UI/UX and prototype design.</p>
+
+            <img src="images/image2.png" alt="CLT Legal AI Assistant main user interface" class="scroll-fade-in">
+
+            <h4 class="scroll-fade-in">Goal</h4>
+            <p class="scroll-fade-in">To design a clear and accessible interface for exploring Community Land Trust (CLT) laws across U.S. states, combining structured data tables with conversational search.</p>
+
+            <h4 class="scroll-fade-in">Design Focus</h4>
+            <ul class="scroll-fade-in">
+                <li>Presenting dense legal data in an intuitive format.</li>
+                <li>Balancing a data-driven table view with natural-language chatbot interaction.</li>
+                <li>Maintaining visual hierarchy and readability across modules.</li>
+            </ul>
+
+            <h4 class="scroll-fade-in">Outcome</h4>
+            <p class="scroll-fade-in">A modular system including a responsive Table View, a contextual chatbot, and a searchable state selector that simplifies navigation through complex housing legislation.</p>
+
+            <div class="slideshow-container scroll-fade-in">
+                <div class="mySlides slide-fade"><img src="images/project2-1.png" alt="Project Outcome Image 1"></div>
+                <div class="mySlides slide-fade"><img src="images/project2-2.png" alt="Project Outcome Image 2"></div>
+                <div class="mySlides slide-fade"><img src="images/project2-3.png" alt="Project Outcome Image 3"></div>
+                <div class="mySlides slide-fade"><img src="images/project2-4.png" alt="Project Outcome Image 4"></div>
+                <div class="mySlides slide-fade"><img src="images/project2-5.png" alt="Project Outcome Image 5"></div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <div class="dots-container scroll-fade-in">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+            </div>
+            
+            <a href="https://www.figma.com/proto/PHTbG7lzxQpsGFRIoHWmli/Challenge?node-id=120-1222&p=f&t=GHCZUEhet65Om7He-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=99%3A703" target="_blank" class="button scroll-fade-in" style="margin-top: 2em;">
+                <i class="fas fa-external-link-alt fa-fw"></i> View Prototype
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+
+            // --- Theme Switcher ---
+            const currentTheme = localStorage.getItem('theme');
+            function setTheme(theme) {
+                if (theme === 'light') {
+                    body.classList.add('light-mode');
+                    themeToggle.checked = true;
+                } else {
+                    body.classList.remove('light-mode');
+                    themeToggle.checked = false;
+                }
+                localStorage.setItem('theme', theme);
+            }
+            if (currentTheme) {
+                setTheme(currentTheme);
+            }
+            themeToggle.addEventListener('change', () => {
+                setTheme(themeToggle.checked ? 'light' : 'dark');
+            });
+
+            // --- Scroll Fade-in Animation ---
+            const scrollElements = document.querySelectorAll('.scroll-fade-in');
+            const scrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            scrollElements.forEach(el => {
+                scrollObserver.observe(el);
+            });
+        });
+
+        // --- Slideshow Logic ---
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active";
+        }
+    </script>
+</body>
+</html>
+

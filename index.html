@@ -1,53 +1,81 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Shu Yang</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<style>
-			@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shu Yang | Personal Portfolio</title>
+    <!-- Google Fonts and Font Awesome for icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            --bg-primary: #28233f;
+            --bg-secondary: #3a335c;
+            --bg-sidebar: rgba(25, 22, 43, 0.95);
+            --bg-feature: rgba(80, 71, 117, 0.5);
+            --bg-button: rgba(255, 255, 255, 0.25);
+            --bg-button-hover: #303582b0;
+            --bg-keyword: rgba(255, 255, 255, 0.1);
 
+<<<<<<< HEAD
 			body {
 				font-family: 'Roboto', sans-serif;
 				margin-left: 240px;
 				width: calc(100% - 240px);
 			}
+=======
+            --text-primary: rgba(255, 255, 255, 0.75);
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-headings: #ffffff;
+            --text-button: #ffffff;
+            --text-keyword: rgba(255, 255, 255, 0.8);
+>>>>>>> 22d2ad432f63be038b10ed231e28a2af2c9ea6da
 
-			.content {
-				padding: 20px;
-				margin: 10px;
-			}
+            --accent-primary: #a369ff;
+            --border-button-hover: rgba(255, 255, 255, 0.5);
+            --border-divider: rgba(255, 255, 255, 0.15);
+            
+            --shadow: none;
+        }
 
-			.button:hover {
-				background-color: #0056b3;
-				color: white;
-			}
+        body.light-mode {
+            --bg-primary: #f4f7f9;
+            --bg-secondary: #ffffff;
+            --bg-sidebar: #ffffff;
+            --bg-feature: #ffffff;
+            --bg-button: rgba(105, 77, 229, 0.25);
+            --bg-button-hover: #5038b3;
+            --bg-keyword: #eef2ff;
 
-			@media (max-width: 768px) {
-				.item {
-					flex: 1 1 100%;
-				}
+            --text-primary: #5f6c7b;
+            --text-secondary: #718096;
+            --text-headings: #1d2d35;
+            --text-button: #4338ca;
+            --text-keyword: #4338ca;
+            
+            --accent-primary: #694de5;
+            --border-button-hover: #694de5;
+            --border-divider: #e2e8f0;
 
-				#sidebar {
-					width: 100%;
-					height: auto;
-					position: static;
-					box-shadow: none;
-				}
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
 
-				#sidebar .inner {
-					flex-direction: row;
-					justify-content: space-around;
-				}
-			}
+        /* Base and Reset */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
+<<<<<<< HEAD
 			#sidebar {
 				position: fixed;
 				left: 0;
@@ -61,22 +89,56 @@
 				box-shadow: 2px 0 5px rgba(0,0,0,0);
 				z-index: 1000;
 			}
+=======
+        /* Typography and Links */
+        h1, h2, h3 { color: var(--text-headings); font-weight: 700; line-height: 1.2; margin: 0 0 1rem 0; transition: color 0.3s ease; }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        p { margin: 0 0 1rem 0; line-height: 1.6; }
+        a { color: var(--accent-primary); text-decoration: none; transition: color 0.2s ease; }
+        a:hover { color: var(--text-headings); }
+>>>>>>> 22d2ad432f63be038b10ed231e28a2af2c9ea6da
 
-			#sidebar .inner {
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-			}
+        /* Main Layout: Sidebar and Wrapper */
+        #sidebar {
+            position: fixed; top: 0; left: 0; width: 20em; height: 100%;
+            background: var(--bg-sidebar);
+            padding: 2em;
+            color: var(--text-headings);
+            z-index: 10001;
+            display: flex; flex-direction: column; justify-content: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        #sidebar .inner { width: 100%; }
+        #wrapper { padding-left: 20em; transition: transform 0.3s ease, opacity 0.3s ease; position: relative; z-index: 10; }
 
-			#sidebar nav ul {
-				list-style-type: none;
-				padding: 0;
-			}
+        /* Navigation */
+        #sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+        #sidebar nav a {
+            display: flex; align-items: center; padding: 0.75em 1em; color: var(--text-primary);
+            border-radius: 6px; margin: 0.25rem 0; font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        #sidebar nav a .fa-fw { margin-right: 1em; }
+        #sidebar nav a:hover { background-color: rgba(0, 0, 0, 0.05); color: var(--text-headings); }
+        body.light-mode #sidebar nav a:hover { background-color: #f4f7f9; }
+        #sidebar nav a.active { background-color: var(--accent-primary); color: #ffffff; font-weight: 700; }
+        .links ul { list-style: none; padding: 1.5rem 0 0 0; margin: 1.5rem 0 0 0; border-top: 1px solid var(--border-divider); transition: border-color 0.3s ease;}
+        .links ul li { margin-bottom: 0.5rem; }
+        
+        /* Intro Links */
+        .intro-actions { margin-top: 2em; display: flex; justify-content: center; gap: 1em; flex-wrap: wrap; }
+        .intro-actions .button .fa-fw { margin-right: 0.5em; }
 
-			#sidebar nav ul li {
-				margin: 10px 0;
-			}
+        /* Content Sections */
+        .wrapper { padding: 4em 3em; transition: background-color 0.3s ease; }
+        .wrapper.style1 { background-color: var(--bg-secondary); }
+        .wrapper.style2 { background-color: transparent; }
+        .inner { max-width: 45em; margin: 0 auto; }
 
+<<<<<<< HEAD
 			#sidebar nav ul li a {
 				color: white;
 				text-decoration: none;
@@ -101,24 +163,87 @@
 				align-items: center;
 				padding-left: 20px;
 			}
+=======
+        /* Section Headers */
+        .inner > h2 { padding-bottom: 0.5em; border-bottom: 1px solid var(--border-divider); margin-bottom: 2em; transition: border-color 0.3s ease;}
 
-			.nav-list {
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-				display: flex;
-			}
+        /* Spotlight (Projects) */
+        .spotlight { display: flex; align-items: center; margin-bottom: 3em; gap: 2em; }
+        .spotlight .image { width: 40%; flex-shrink: 0; border-radius: 8px; overflow: hidden; }
+        .spotlight .image img { width: 100%; display: block; }
+        .spotlight .content { width: 60%; padding: 0; }
+        .spotlight:nth-child(2n) { flex-direction: row-reverse; }
+        .spotlight:nth-child(2n) .content { text-align: left; }
+        .spotlight p { color: var(--text-secondary); font-weight: 400; font-size: 0.95em; }
+        .keywords-container { display: flex; flex-wrap: wrap; gap: 0.5em; margin-bottom: 1rem; margin-top: -0.5rem; }
+        .keyword-tag { background-color: var(--bg-keyword); color: var(--text-keyword); padding: 0.25em 0.75em; border-radius: 1em; font-size: 0.75em; font-weight: 500; transition: background-color 0.3s ease, color 0.3s ease; }
 
-			.nav-list li {
-				padding: 14px 20px;
-			}
+        /* Features (Skills) */
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; }
+        .feature { background: var(--bg-feature); padding: 2em; border-radius: 8px; text-align: left; box-shadow: var(--shadow); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+        .feature .icon { font-size: 2.5rem; color: var(--accent-primary); margin-bottom: 1rem; }
+        .feature ul { list-style: disc; padding-left: 20px; text-align: left; color: var(--text-primary); }
 
-			.nav-list li a {
-				color: white;
-				text-decoration: none;
-				font-weight: bold;
-			}
+        /* Button */
+        .button {
+            display: inline-flex; justify-content: center; align-items: center;
+            background-color: var(--bg-button);
+            color: var(--text-button);
+            padding: 10px 20px; border-radius: 4px; font-weight: 700;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            border: 1px solid transparent; cursor: pointer; text-decoration: none; position: relative;
+        }
+        .button:hover {
+            background-color: var(--bg-button-hover);
+            color: #ffffff;
+            border-color: var(--border-button-hover);
+        }
+        body.light-mode .button:hover {
+             border-color: transparent;
+             color: #ffffff;
+        }
+>>>>>>> 22d2ad432f63be038b10ed231e28a2af2c9ea6da
 
+        /* Contact Section */
+        #contact .inner { text-align: center; }
+        #contact .contact-methods { display: inline-flex; justify-content: center; gap: 3em; text-align: left; margin-top: 2em; flex-wrap: wrap; }
+        #contact .contact-methods > div { position: relative; padding: 1.5em; transition: background-color 0.3s ease; }
+        #contact .contact-methods > div:hover { background-color: var(--bg-feature); }
+        body.light-mode #contact .contact-methods > div:hover { background-color: rgba(255, 255, 255, 0.2); }
+        #contact .contact-methods > div::before, #contact .contact-methods > div::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+        }
+        #contact .contact-methods > div::before { border-top: 1px solid var(--accent-primary); border-bottom: 1px solid var(--accent-primary); transform: scaleX(0); transition: transform 0.3s ease-out; }
+        #contact .contact-methods > div::after { border-left: 1px solid var(--accent-primary); border-right: 1px solid var(--accent-primary); transform: scaleY(0); transition: transform 0.3s ease-out; }
+        #contact .contact-methods > div:hover::before { transform: scaleX(1); transition-delay: 0.3s; }
+        #contact .contact-methods > div:hover::after { transform: scaleY(1); transition-delay: 0s; }
+        #contact .icon { font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5em; }
+
+        /* Theme Toggle */
+        .theme-switch-wrapper { display: flex; align-items: center; justify-content: center; margin-top: 2em; }
+        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #4a426b; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
+        .slider:before {
+            content: "\f186"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+            color: #28233f;
+            display: flex; align-items: center; justify-content: center;
+            background-color: #fff; bottom: 4px; height: 18px; left: 4px;
+            position: absolute; width: 18px; transition: .4s;
+        }
+        input:checked + .slider { background-color: #ccc; }
+        input:checked + .slider:before {
+            content: "\f185";
+            transform: translateX(24px);
+        }
+        .slider.round { border-radius: 34px; }
+        .slider.round:before { border-radius: 50%; }
+
+        /* Fade-in Animation */
+        .fade-in-section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+
+<<<<<<< HEAD
 			.nav-list li a:hover {
 				background-color: transparent;
 				border-radius: 4px;
@@ -404,44 +529,136 @@
 		</style>
 	</head>
 	<body class="is-preload">
+=======
+        /* Animated Background */
+        .background-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
+        .background-shapes li {
+            position: absolute; display: block; list-style: none; width: 20px; height: 20px;
+            background: rgba(163, 105, 255, 0.15); animation: float 25s linear infinite; bottom: -150px;
+        }
+        
+        body.light-mode .background-shapes li {
+            background: rgba(105, 77, 229, 0.1);
+            border: none;
+        }
+        body.light-mode .background-shapes li:nth-child(2),
+        body.light-mode .background-shapes li:nth-child(5),
+        body.light-mode .background-shapes li:nth-child(7),
+        body.light-mode .background-shapes li:nth-child(9) {
+            background: transparent;
+            border: 2px solid rgba(105, 77, 229, 0.15);
+        }
+>>>>>>> 22d2ad432f63be038b10ed231e28a2af2c9ea6da
 
-		<!-- Navigation Bar -->
-		<nav class="navbar">
-			<div class="container">
-				<ul class="nav-list">
-					<li><a href="#intro">Introduce</a></li>
-					<li><a href="#one">Program</a></li>
-					<li><a href="#two">Skills & Ability</a></li>
-					<li><a href="#three">Get in Touch</a></li>
-				</ul>
-			</div>
-		</nav>
+        .background-shapes li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .background-shapes li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .background-shapes li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .background-shapes li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .background-shapes li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        .background-shapes li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
+        .background-shapes li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+        @keyframes float { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-		<!-- Sidebar -->
-		<section id="sidebar">
-			<div class="inner">
-				<nav>
-					<ul>
-						<li><a href="#intro">Introduce</a></li>
-						<li><a href="#one">Program</a></li>
-						<li><a href="#two">Skills & Ability</a></li>
-						<li><a href="#three">Get in Touch</a></li>
-					</ul>
-				</nav>
-			</div>
-		</section>
+        /* Responsive */
+        @media (max-width: 1280px) {
+            #sidebar {
+                position: sticky; top: 0; width: 100%; height: auto; padding: 0;
+                flex-direction: row; justify-content: space-between; align-items: center;
+            }
+            #sidebar .inner {
+                display: flex; flex-direction: row; justify-content: center; align-items: center;
+                width: 100%; padding: 0.75em 1.5em;
+                gap: 1em; /* This creates the consistent spacing */
+            }
+            #sidebar nav {
+                /* No flex-grow needed */
+            }
+            #sidebar nav ul {
+                display: flex; flex-direction: row; gap: 1em;
+            }
+            .links, #sidebar .branding {
+                display: none;
+            }
+            .theme-switch-wrapper {
+                margin-top: 0;
+            }
+            #wrapper {
+                padding-left: 0;
+            }
+        }
+        @media (max-width: 980px) {
+            .wrapper { padding: 3em 2em; }
+            .spotlight { flex-direction: column !important; text-align: left !important; }
+            .spotlight .image, .spotlight .content { width: 100%; }
+            .spotlight .content { padding: 2em 0 0 0; }
+            .features { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 736px) {
+            h1 { font-size: 2rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.2rem; }
+            .wrapper { padding: 2em 1em; }
+            .contact-methods { flex-direction: column; gap: 1.5em; text-align: left; align-items: center; }
+             #sidebar nav a .fa-fw {
+                margin-right: 0;
+            }
+            #sidebar nav a .nav-text {
+                display: none;
+            }
+            #sidebar .inner {
+                padding: 0.75em 1em;
+                justify-content: space-between; /* Revert for smallest screens */
+            }
+            #sidebar nav ul {
+                justify-content: flex-start;
+                gap: 0.5em;
+            }
+        }
+    </style>
+</head>
+<body class="is-preload">
+    
+    <ul class="background-shapes">
+       <li></li> <li></li> <li></li> <li></li> <li></li>
+       <li></li> <li></li> <li></li> <li></li> <li></li>
+    </ul>
 
-		<!-- Intro -->
-		<section id="intro" class="wrapper style1 fullscreen fade-up">
-			<div class="inner">
-				<h1>Shu Yang</h1>
-				<p>Designer & Technologist merging urban science with creative innovation. Expertise in UI/UX, branding, data visualization, and machine learning. Projects experience in AI, AR, and decentralized gaming. Passionate about user-centric solutions bridging design and tech.</p>
-				<ul class="actions">
-					<li><a href="https://drive.google.com/file/d/1DAONVxsh2Mp3mTr3vFtZjYLp2HMoIk28/view?usp=drive_link" class="button scrolly"target="_blank">Learn more</a></li>
-				</ul>
-			</div>
-		</section>
+    <!-- Sidebar --><section id="sidebar">
+        <div class="inner">
+             <div class="branding">
+                <a href="#intro" style="font-size: 1.5rem; color: inherit; font-weight: 700;">Shu Yang</a>
+            </div>
+            <nav id="nav-links">
+                <ul>
+                    <li><a href="#intro"><i class="far fa-address-card fa-fw"></i><span class="nav-text"> Introduce</span></a></li>
+                    <li><a href="#one"><i class="far fa-folder-open fa-fw"></i><span class="nav-text"> Projects</span></a></li>
+                    <li><a href="#two"><i class="fas fa-laptop-code fa-fw"></i><span class="nav-text"> Skills</span></a></li>
+                    <li><a href="#contact"><i class="far fa-envelope fa-fw"></i><span class="nav-text"> Contact</span></a></li>
+                    <li><a href=gallery.html><i class="fas fa-palette fa-fw"></i><span class="nav-text"> Gallery</span></a></li>
+                </ul>
+            </nav>
+            <div class="links">
+                 <ul>
+                    <li><a href="https://github.com/TreeAspen" target="_blank"><i class="fab fa-github fa-fw"></i> GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/aspen-yang-cusp" target="_blank"><i class="fab fa-linkedin fa-fw"></i> LinkedIn</a></li>
+                    <li><a href="https://docs.google.com/document/d/1i8S2MxwOtFBbK6ppSoIzBwBYljCYqNYn/edit?usp=sharing&ouid=112784057135088651858&rtpof=true&sd=true" target="_blank"><i class="far fa-file-alt fa-fw"></i> Resume</a></li>
+                    <li><a href="https://drive.google.com/file/d/1DAONVxsh2Mp3mTr3vFtZjYLp2HMoIk28/view?usp=drivesdk" target="_blank"><i class="far fa-images fa-fw"></i> Portfolio</a></li>
+                    <li><a href= gallery.html target="_blank"><i class="far fa-gem fa-fw"></i> Gallery</a></li>
+                </ul>
+            </div>
+             <!-- Theme Switch -->
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </section>
 
+<<<<<<< HEAD
 		<!-- One -->
 		<section id="one" class="wrapper style2 spotlights">
 			<section>
@@ -586,24 +803,226 @@
 			</div>
 		</section>
 	</div>
+=======
+    <!-- Wrapper --><div id="wrapper">
+>>>>>>> 22d2ad432f63be038b10ed231e28a2af2c9ea6da
 
-	<!-- Footer -->
-	<footer id="footer" class="wrapper style1-alt">
-		<div class="inner">
-			<ul class="menu">
-				<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</div>
-	</footer>
+        <!-- Intro --><section id="intro" class="wrapper style1 fullscreen fade-in-section">
+            <div class="inner">
+                <h1>Shu Yang</h1>
+                <p>Designer & Technologist merging urban science with creative innovation. My expertise lies in UI/UX design, data visualization, and machine learning, with project experience in AI, AR, and decentralized gaming. I am passionate about crafting user-centric solutions that bridge the gap between design and technology.</p>
+                <div class="intro-actions">
+                     <a href="https://github.com/TreeAspen" target="_blank" title="GitHub" class="button"><i class="fab fa-github fa-fw"></i>GitHub</a>
+                     <a href="https://www.linkedin.com/in/aspen-yang-cusp" target="_blank" title="LinkedIn" class="button"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+                     <a href="https://docs.google.com/document/d/1i8S2MxwOtFBbK6ppSoIzBwBYljCYqNYn/edit?usp=sharing&ouid=112784057135088651858&rtpof=true&sd=true" target="_blank" title="Resume" class="button"><i class="far fa-file-alt fa-fw"></i>Resume</a>
+                     <a href="https://drive.google.com/file/d/1DAONVxsh2Mp3mTr3vFtZjYLp2HMoIk28/view?usp=drivesdk" title="Portfolio" class="button"><i class="far fa-gem fa-fw"></i>Portfolio</a>
+                     <a href=gallery.html title="Gallery" class="button"><i class="fas fa-palette fa-fw"></i>Gallery</a>
+                </div>
+            </div>
+        </section>
 
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+        <!-- Section One: Projects --><section id="one" class="wrapper style2 spotlights">
+            <div class="inner">
+                 <h2>Featured Projects</h2>
+                 <section class="spotlight fade-in-section">
+                    <div class="image"><img src="images/image4.png" alt="SomniBot AI Sleep Assistant" /></div>
+                    <div class="content">
+                        <h3>SomniBot: AI-Powered Personalized Sleep Assistant</h3>
+                        <div class="keywords-container">
+                            <span class="keyword-tag">AI</span> <span class="keyword-tag">HealthTech</span> <span class="keyword-tag">Sleep Science</span> <span class="keyword-tag">FHIR</span> <span class="keyword-tag">RAG</span>
+                        </div>
+                        <p>An AI-driven sleep assistant providing personalized, science-backed guidance using FHIR and RAG. It features a self-assessment quiz and intelligent analysis based on EHR data to improve sleep quality while ensuring privacy.</p>
+                        <a href= project_1.html class="button">Learn more</a>
+                    </div>
+                </section>
+                <section class="spotlight fade-in-section">
+                    <div class="image"><img src="images/image2.png" alt="CLT Legal AI Assistant UI" /></div>
+                    <div class="content">
+                        <h3>CLT Legal AI Assistant: Intelligent Chatbot & Multilingual Platform</h3>
+                        <div class="keywords-container">
+                            <span class="keyword-tag">AI</span> <span class="keyword-tag">LegalTech</span> <span class="keyword-tag">NLP</span> <span class="keyword-tag">Chatbot</span>
+                        </div>
+                        <p>An AI-powered legal support tool for Community Land Trusts (CLTs). It uses machine learning to parse legal datasets and was iteratively enhanced across three versions to include a multilingual chatbot, user accounts, and an interactive map.</p>
+                        <a href= project_2.html class="button">Learn more</a>
+                    </div>
+                </section>
+                <section class="spotlight fade-in-section">
+                    <div class="image"><img src="images/project3-1.png" alt="UI/UX and Data Science Internship" /></div>
+                    <div class="content">
+                        <h3>Dauyan AI Writing Assistant</h3>
+                        <div class="keywords-container">
+                            <span class="keyword-tag">UI/UX Design</span> <span class="keyword-tag">Data Science</span> <span class="keyword-tag">User Research</span> <span class="keyword-tag">Startup</span>
+                        </div>
+                        <p>This project is a website which trying to combinate AI and English writing in order to help students study and exercise it deeper and easier. As AI could help them in conception, writing, scoring and other personalized questions</p>
+                        <a href= project_3.html class="button">Learn more</a>
+                    </div>
+                </section>
+                <section class="spotlight fade-in-section">
+                    <div class="image"><img src="images/image5.png" alt="Houston Healthcare Map" /></div>
+                    <div class="content">
+                        <h3>Houston's Healthcare Divide: Mapping Access and Inequality</h3>
+                        <div class="keywords-container">
+                            <span class="keyword-tag">GIS</span> <span class="keyword-tag">Urban Science</span> <span class="keyword-tag">Healthcare</span> <span class="keyword-tag">Data Analysis</span>
+                        </div>
+                        <p>This study uses GIS network analysis to examine healthcare accessibility in Houston. By analyzing road networks and travel times, it reveals disparities in resource distribution and its impact on residents.</p>
+                        <a href="https://arcg.is/1PnjPu0" target="_blank" class="button">Learn more</a>
+                    </div>
+                </section>
+                 <section class="spotlight fade-in-section">
+                    <div class="image"><img src="images/image1.png" alt="Florida Flood Economic Impact" /></div>
+                    <div class="content">
+                        <h3>Economic Toll of Flooding: Florida Case Study</h3>
+                        <div class="keywords-container">
+                            <span class="keyword-tag">GIS</span> <span class="keyword-tag">Machine Learning</span> <span class="keyword-tag">Climate Risk</span> <span class="keyword-tag">Economic Modeling</span>
+                        </div>
+                        <p>This project uses GIS and machine learning to predict flood risk and economic losses in Florida. It models vulnerability and economic impact by integrating physical, demographic, and socioeconomic data.</p>
+                        <a href="https://arcg.is/1nrHCf1" target="_blank" class="button">Learn more</a>
+                    </div>
+                </section>
+                 <section class="spotlight fade-in-section">
+                    <div class="image"><img src="images/image3.png" alt="Facial Pixel Mosaic generative art" /></div>
+                    <div class="content">
+                        <h3>Facial Pixel Mosaic: Real-time Generative Art with Eye Tracking</h3>
+                        <div class="keywords-container">
+                            <span class="keyword-tag">Creative Coding</span> <span class="keyword-tag">Generative Art</span> <span class="keyword-tag">Computer Vision</span> <span class="keyword-tag">ml5.js</span>
+                        </div>
+                        <p>An interactive artwork using ml5.js FaceMesh to create dynamic mosaic portraits from live video. It features eye-triggered regeneration and demonstrates creative coding with computer vision.</p>
+                        <a href="https://shuyang-dm-gy-6063-2024fall-b.github.io/HW09/HW09B/" target="_blank" class="button">Learn more</a>
+                    </div>
+                </section>
+            </div>
+        </section>
 
+        <!-- Section Two: Skills --><section id="two" class="wrapper style1 fade-in-section">
+            <div class="inner">
+                <h2>Skills & Abilities</h2>
+                <div class="features">
+                    <section class="feature">
+                        <div class="icon"><i class="fas fa-pencil-ruler"></i></div>
+                        <h3>Design Expertise</h3>
+                        <ul>
+                            <li>UI/UX Design & Research</li> <li>Branding & Visual Identity</li> <li>Figma, Adobe Suite, C4D</li>
+                        </ul>
+                    </section>
+                    <section class="feature">
+                         <div class="icon"><i class="fas fa-code"></i></div>
+                        <h3>Technical Proficiency</h3>
+                        <ul>
+                            <li>Machine Learning & Geospatial Analysis</li> <li>Python, JavaScript</li> <li>ArcGIS, OpenAI API</li>
+                        </ul>
+                    </section>
+                    <section class="feature">
+                         <div class="icon"><i class="fas fa-chart-bar"></i></div>
+                        <h3>User Research & Analytics</h3>
+                        <ul>
+                            <li>Conducted 50+ usability tests</li> <li>Analyzed 1,000+ market data points</li> <li>User Journey Mapping</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Three: Contact --><section id="contact" class="wrapper style2 fade-in-section">
+            <div class="inner">
+                <h2>Get in Touch</h2>
+                <p>I'm currently seeking new opportunities and am open to collaboration. Feel free to reach out if you'd like to connect or just say hello!</p>
+                <div class="contact-methods">
+                     <div>
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <h3>Email</h3>
+                        <a href="mailto:sy4254@nyu.edu">sy4254@nyu.edu</a>
+                    </div>
+                     <div>
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                        <h3>Phone</h3>
+                        <span>(929) 616-4129</span>
+                    </div>
+                     <div>
+                        <div class="icon"><i class="fab fa-linkedin"></i></div>
+                        <h3>LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/aspen-yang-cusp" target="_blank">Aspen Yang</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Menu Toggle Button is removed -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const sidebar = document.getElementById('sidebar');
+            const wrapper = document.getElementById('wrapper');
+            const navLinks = document.querySelectorAll('#nav-links a');
+            const sections = document.querySelectorAll('#wrapper section[id]');
+            const fadeInSections = document.querySelectorAll('.fade-in-section');
+            const themeToggle = document.getElementById('theme-toggle');
+
+            // --- Theme Switcher ---
+            const currentTheme = localStorage.getItem('theme');
+
+            function setTheme(theme) {
+                if (theme === 'light') {
+                    body.classList.add('light-mode');
+                    themeToggle.checked = true;
+                } else {
+                    body.classList.remove('light-mode');
+                    themeToggle.checked = false;
+                }
+                localStorage.setItem('theme', theme);
+            }
+
+            if (currentTheme) {
+                setTheme(currentTheme);
+            }
+
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    setTheme('light');
+                } else {
+                    setTheme('dark');
+                }
+            });
+
+
+            // --- Preload screen ---
+            setTimeout(() => { body.classList.remove('is-preload'); }, 100);
+
+            // --- Intersection Observer for Scrollspy ---
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`nav a[href="#${id}"]`);
+
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        if(navLink) {
+                           navLink.classList.add('active');
+                        }
+                    }
+                });
+            }, {
+                // Trigger when the section is in the middle 50% of the screen
+                rootMargin: "-25% 0px -75% 0px"
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // --- Intersection Observer for Fade-in ---
+            const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            fadeInSections.forEach(section => { fadeInObserver.observe(section); });
+        });
+    </script>
 </body>
 </html>
+
