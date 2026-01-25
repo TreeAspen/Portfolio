@@ -16,7 +16,8 @@
 
 			body {
 				font-family: 'Roboto', sans-serif;
-				margin-left: 240px; /* Adjust this value to match the sidebar width plus some extra space */
+				margin-left: 240px;
+				width: calc(100% - 240px);
 			}
 
 			.content {
@@ -49,16 +50,16 @@
 
 			#sidebar {
 				position: fixed;
-				left: 0; /* Sidebar on the left */
+				left: 0;
 				top: 0;
-				width: 220px; /* Adjust width as needed */
+				width: 220px;
 				height: 100%;
-				background: rgba(0, 0, 0, 0); /* Semi-transparent black */
+				background: rgba(0, 0, 0, 0);
 				color: white;
 				overflow-y: auto;
 				padding: 20px;
-				box-shadow: 2px 0 5px rgba(0,0,0,0); /* Adjust shadow for left side */
-				z-index: 1000; /* Ensure the sidebar is above other content */
+				box-shadow: 2px 0 5px rgba(0,0,0,0);
+				z-index: 1000;
 			}
 
 			#sidebar .inner {
@@ -80,24 +81,25 @@
 				color: white;
 				text-decoration: none;
 				font-weight: bold;
-				transition: background-color 0.3s, padding-left 0.3s; /* Add transition for hover effect */
+				transition: background-color 0.3s, padding-left 0.3s;
 			}
 
 			#sidebar nav ul li a:hover {
 				background-color: #575757;
-				padding-left: 10px; /* Add padding effect on hover */
+				padding-left: 10px;
 				border-radius: 4px;
 			}
 
 			.navbar {
-				background-color: #333;
+				background-color: transparent;
 				overflow: hidden;
 			}
 
 			.navbar .container {
 				display: flex;
-				justify-content: center;
+				justify-content: flex-start;
 				align-items: center;
+				padding-left: 20px;
 			}
 
 			.nav-list {
@@ -118,8 +120,286 @@
 			}
 
 			.nav-list li a:hover {
-				background-color: #575757;
+				background-color: transparent;
 				border-radius: 4px;
+			}
+
+			.spotlights > section {
+				position: relative;
+				display: flex;
+				flex-direction: row;
+				min-height: auto;
+				align-items: stretch;
+				padding: 0;
+			}
+
+			.spotlights > section:not(:first-child)::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 10%;
+				right: 10%;
+				height: 1px;
+				background: linear-gradient(to right, 
+					rgba(255,255,255,0), 
+					rgba(255,255,255,0.3), 
+					rgba(255,255,255,0));
+			}
+
+			.spotlights > section > .image {
+				position: relative;
+				width: 30em;
+				flex: 0 0 30em;
+				overflow: hidden;
+			}
+
+			.spotlights > section > .image a {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			.spotlights > section > .image img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+				display: block;
+			}
+
+			.spotlights > section > .content {
+				flex: 1;
+				display: flex;
+				align-items: center;
+				padding: 2em;
+			}
+
+			@media screen and (max-width: 980px) {
+				.spotlights > section {
+					flex-direction: column;
+				}
+
+				.spotlights > section > .image {
+					width: 100%;
+					flex: none;
+					height: 400px;
+				}
+
+				.spotlights > section > .content {
+					width: 100%;
+					padding: 2em;
+				}
+			}
+
+			.features {
+				display: flex;
+				flex-direction: column;
+				gap: 1.5em;
+				width: 100%;
+				padding: 2em 1em;
+				max-width: 1400px;
+				margin: 0 auto;
+			}
+
+			.skill-card {
+				width: 100%;
+				padding: 1.8em 1.5em;
+				display: flex;
+				flex-direction: column;
+				background: linear-gradient(
+					135deg,
+					rgba(255, 255, 255, 0.08),
+					rgba(255, 255, 255, 0.02)
+				);
+				border-radius: 20px;
+				box-shadow: 
+					0 8px 24px rgba(0, 0, 0, 0.12),
+					inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+				transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(8px);
+			}
+
+			.card-header {
+				display: flex;
+				align-items: center;
+				margin-bottom: 1em;
+			}
+
+			.icon-header {
+				font-size: 1.8em;
+				margin-right: 0.8em;
+				color: #ffffff;
+			}
+
+			.skill-card h3 {
+				margin: 0;
+				font-size: 1.5em;
+				font-weight: 600;
+				color: #ffffff;
+			}
+
+			.skill-list {
+				padding-left: 1.5em;
+			}
+
+			.skill-list li {
+				margin: 0.5em 0;
+				font-size: 1em;
+				line-height: 1.5;
+				color: rgba(255, 255, 255, 0.85);
+				position: relative;
+			}
+
+			.skill-list li::before {
+				content: '';
+				position: absolute;
+				left: -1em;
+				top: 0.65em;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.6);
+			}
+
+			@media (max-width: 768px) {
+				.skill-card {
+					padding: 1.5em 1.2em;
+				}
+			}
+
+			@media screen and (max-width: 1680px) {
+				body {
+					margin-left: 220px;
+				}
+			}
+
+			@media screen and (max-width: 1280px) {
+				body {
+					margin-left: 200px;
+				}
+
+				.spotlights > section > .image {
+					width: 25em;
+					flex: 0 0 25em;
+				}
+			}
+
+			@media screen and (max-width: 980px) {
+				body {
+					margin-left: 0;
+					padding-top: 60px;
+				}
+
+				.navbar {
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					background: rgba(0, 0, 0, 0.9);
+					z-index: 1000;
+				}
+
+				.nav-list {
+					justify-content: center;
+				}
+
+				.nav-list li {
+					padding: 10px 15px;
+				}
+
+				#sidebar {
+					display: none;
+				}
+
+				.spotlights > section {
+					flex-direction: column;
+				}
+
+				.spotlights > section > .image {
+					width: 100%;
+					flex: none;
+					height: 300px;
+				}
+
+				.spotlights > section > .content {
+					padding: 1.5em;
+				}
+			}
+
+			@media screen and (max-width: 736px) {
+				body {
+					padding-top: 50px;
+				}
+
+				.nav-list li {
+					padding: 8px 10px;
+					font-size: 0.9em;
+				}
+
+				h1 {
+					font-size: 2em;
+				}
+
+				h2 {
+					font-size: 1.5em;
+				}
+
+				.spotlights > section > .image {
+					height: 250px;
+				}
+			}
+
+			@media screen and (max-width: 480px) {
+				.navbar .container {
+					padding: 0 5px;
+				}
+
+				.nav-list li {
+					padding: 6px 8px;
+					font-size: 0.85em;
+				}
+
+				.inner {
+					padding: 1em;
+				}
+
+				.spotlights > section > .image {
+					height: 200px;
+				}
+
+				.spotlights > section > .content {
+					padding: 1em;
+				}
+
+				#three .inner {
+					padding: 1em;
+				}
+
+				.contact li {
+					padding: 0.5em 0;
+				}
+			}
+
+			.inner {
+				max-width: 100%;
+				margin: 0 auto;
+				padding: 0 1em;
+			}
+
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+
+			p {
+				font-size: clamp(0.9em, 2.5vw, 1em);
+				line-height: 1.6;
+			}
+
+			.button {
+				padding: clamp(0.5em, 2vw, 1em) clamp(1em, 3vw, 2em);
+				font-size: clamp(0.8em, 2vw, 1em);
 			}
 		</style>
 	</head>
@@ -169,7 +449,7 @@
 				<div class="content">
 					<div class="inner">
 						<h2>SomniBot: AI-Powered Personalized Sleep Assistant</h2>
-						<p>SomniBot is an AI-driven sleep assistant that provides personalized, science-backed sleep guidance. Using FHIR for secure health data handling and Retrieval-Augmented Generation (RAG) for accurate responses, it offers customized sleep insights based on user input and electronic health records (EHR). With features like a self-assessment quiz, intelligent sleep analysis, and expert-backed recommendations, SomniBot helps users improve their sleep quality while ensuring privacy and reliability. Future enhancements include a dark mode for better nighttime usability, an FAQ section for common sleep concerns, and expanded EHR capabilities.</p>
+						<p>An AI-driven sleep assistant using FHIR and RAG technology for personalized sleep guidance. Features include sleep analysis, expert recommendations, and EHR integration, all with robust privacy protection.</p>
 						<ul class="actions">
 							<li><a href="https://devpost.com/software/diabeteeth?_gl=1*a1k5cq*_gcl_au*NzUyNTY1NDIuMTczNjUzOTAyNQ..*_ga*MjE2Mjc5NTcxLjE3Mzc2NTgxNjM.*_ga_0YHJK3Y10M*MTc0MjM0MTk0MS4xMi4xLjE3NDIzNDE5NDUuMC4wLjA." class="button">Learn more</a></li>
 						</ul>
@@ -182,7 +462,7 @@
 				<div class="content">
 					<div class="inner">
 						<h2>Houston's Healthcare Divide: Mapping Access and Inequality</h2>
-						<p>This study delves into the spatial accessibility of healthcare services in Houston by employing Geographic Information System (GIS) network analysis. Through the examination of actual road networks and travel times, it reveals the uneven distribution of healthcare resources in Houston and how this disparity impacts residents' access to healthcare.</p>
+						<p>A GIS-based analysis of healthcare accessibility in Houston, examining road networks and travel times to reveal disparities in healthcare resource distribution.</p>
 						<ul class="actions">
 							<li><a href="https://arcg.is/1PnjPu0" class="button">Learn more</a></li>
 						</ul>
@@ -195,7 +475,7 @@
 				<div class="content">
 					<div class="inner">
 						<h2>Invisible Barriers in New York's Urban Oases</h2>
-						<p>In the bustling city of New York, parks and green spaces serve as urban oases for residents. However, these seemingly open spaces often contain invisible barriers that shape accessibility and usage patterns among different social groups. This project explores the hidden obstacles within New York's urban green spaces, examining factors such as urban planning, socioeconomic disparities, and policy regulations. Through data visualization, it highlights issues of spatial equity and encourages reflection on how to create more inclusive urban environments.</p>
+						<p>Analysis of accessibility patterns in NYC parks, examining socioeconomic barriers and policy impacts on public space usage through data visualization.</p>
 						<ul class="actions">
 							<li><a href="https://storymaps.arcgis.com/stories/8a522410302e41efb35f07c31d807997/print" class="button" target="_blank">Learn more</a></li>
 						</ul>
@@ -208,11 +488,10 @@
 				<div class="content">
 					<div class="inner">
 						<h2>CLT Legal AI Assistant: Intelligent Chatbot & Multilingual Platform</h2>
-						<p>An AI-powered legal support tool for Community Land Trusts (CLTs), leveraging machine learning to parse legal datasets and scholarly articles. Iteratively enhanced across three versions, featuring:<br>
-							<strong>V1.0:</strong> Basic chatbot responses, interactive map, and localized law integration.<br>
-							<strong>V2.0:</strong> Personalized query tracking, user accounts, and expanded state/municipal law databases.<br>
-							<strong>V3.0:</strong> Multilingual support, global legal datasets, and context-aware insights for actionable solutions.<br>
-							Delivered intelligent content extraction and dynamic user engagement tools to streamline CLT policy drafting and compliance.</p>
+						<p>AI-powered legal support tool for Community Land Trusts featuring:<br>
+							<strong>V1.0:</strong> Basic chatbot and law integration<br>
+							<strong>V2.0:</strong> User accounts and expanded databases<br>
+							<strong>V3.0:</strong> Multilingual support and context-aware insights</p>
 						<ul class="actions">
 							<li><a href="https://www.figma.com/proto/PHTbG7lzxQpsGFRIoHWmli/Challenge?node-id=120-1222&p=f&t=GHCZUEhet65Om7He-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=99%3A703" class="button">Learn more</a></li>
 						</ul>
@@ -225,7 +504,7 @@
 				<div class="content">
 					<div class="inner">
 						<h2>Facial Pixel Mosaic: Real-time Generative Art with Eye Tracking</h2>
-						<p>An interactive digital artwork combining face detection (via ml5.js FaceMesh) and pixel manipulation. Captures live video to create dynamic mosaic portraits using color-mapped grayscale thresholds. Features eye-triggered regeneration - resets color patterns when eyes close (landmark height 7px). Click interaction allows manual refresh. Demonstrates creative coding with computer vision and real-time graphics synthesis.</p>
+						<p>Interactive artwork using ml5.js FaceMesh for real-time face detection and pixel manipulation. Features eye-triggered pattern regeneration and dynamic color mapping.</p>
 						<ul class="actions">
 							<li><a href="https://shuyang-dm-gy-6063-2024fall-b.github.io/HW09/HW09B/" class="button" target="_blank">Learn more</a></li>
 						</ul>
@@ -241,46 +520,53 @@
 				<div class="features">
 					<!-- Design Expertise -->
 					<section class="skill-card">
-						<div class="icon-wrapper">
-							<span class="icon solid major fa-pencil-ruler"></span>
+						<div class="card-header">
+							<span class="icon solid major fa-pencil-ruler icon-header"></span>
+							<h3>Design Expertise</h3>
 						</div>
-						<h3>Design Expertise</h3>
 						<div class="content">
-							<li>UI/UX design, branding, visual identity</li>
-							<li>Figma,Adobe Suite,Cinema 4D</li>
+							<ul class="skill-list">
+								<li>UI/UX Design & Visual Identity</li>
+								<li>Brand Strategy & Development</li>
+								<li>Tools: Figma • Adobe Suite • Cinema 4D</li>
+							</ul>
 						</div>
 					</section>
 		
 					<!-- Technical Proficiency -->
 					<section class="skill-card">
-						<div class="icon-wrapper">
-							<span class="icon solid major fa-chart-line"></span>
+						<div class="card-header">
+							<span class="icon solid major fa-chart-line icon-header"></span>
+							<h3>Technical Proficiency</h3>
 						</div>
-						<h3>Technical Proficiency</h3>
 						<div class="content">
-							<ul class="metric-list">
-							<li>ML development, geospatial analysis, and data visualization</li>
-							<li>Languages:Python, JavaScript</li>
-							<li>Tools:ArcGIS, OpenAI API</li>
+							<ul class="skill-list">
+								<li>Machine Learning Development</li>
+								<li>Geospatial Analysis & Data Visualization</li>
+								<li>Languages: Python • JavaScript</li>
+								<li>Tools: ArcGIS • OpenAI API</li>
+							</ul>
 						</div>
 					</section>
 		
 					<!-- User Research -->
 					<section class="skill-card">
-						<div class="icon-wrapper">
-							<span class="icon solid major fa-chart-bar"></span>
+						<div class="card-header">
+							<span class="icon solid major fa-chart-bar icon-header"></span>
+							<h3>User Research & Analytics</h3>
 						</div>
-						<h3>User Research & Analytics</h3>
 						<div class="content">
-							<ul class="metric-list">
-								<li>50+ usability tests conducted</li>
-								<li>1,000+ market data points analyzed</li>
+							<ul class="skill-list">
+								<li>User Research & Testing</li>
+								<li>Data-Driven Market Analysis</li>
+								<li>Experience: 50+ Studies Conducted</li>
+								<li>Data: 1,000+ Points Analyzed</li>
+							</ul>
 						</div>
 					</section>
 				</div>
-			</section>
-		</div>
-	</section>
+			</div>
+		</section>
 		<!-- Three -->
 		<section id="three" class="wrapper style1 fade-up">
 			<div class="inner">
