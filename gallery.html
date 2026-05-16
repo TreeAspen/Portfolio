@@ -3,271 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Gallery | Shu Yang</title>
+    <title>Visual Databank | Shu Yang</title>
     <!-- Google Fonts and Font Awesome for icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Variables for Theming */
+        /* CSS Variables - Sci-Fi Theme synchronized with Main Page */
         :root {
-            --bg-primary: #28233f;
-            --bg-secondary: #3a335c;
-            --bg-sidebar: rgba(25, 22, 43, 0.95);
-            --bg-feature: rgba(80, 71, 117, 0.5);
-            --bg-button: rgba(255, 255, 255, 0.25);
-            --bg-button-hover: #303582b0;
-            --text-primary: rgba(255, 255, 255, 0.75);
+            --bg-primary: #0a0812; 
+            --bg-secondary: rgba(40, 35, 63, 0.4);
+            --bg-sidebar: rgba(18, 15, 30, 0.85);
+            --bg-button: transparent;
+            --bg-button-hover: rgba(163, 105, 255, 0.2);
+            --bg-keyword: rgba(163, 105, 255, 0.15);
+            --bg-image-container: rgba(0, 0, 0, 0.5);
+
+            --text-primary: rgba(255, 255, 255, 0.85);
+            --text-secondary: rgba(255, 255, 255, 0.6);
             --text-headings: #ffffff;
-            --text-button: #ffffff;
+            --text-button: #a369ff;
+
             --accent-primary: #a369ff;
-            --border-button-hover: rgba(255, 255, 255, 0.5);
-            --border-divider: rgba(255, 255, 255, 0.15);
-            --shadow: none;
+            --accent-glow: rgba(163, 105, 255, 0.6);
+            --accent-cyan: #00f0ff;
+            --border-divider: rgba(163, 105, 255, 0.25);
+            
+            --font-mono: 'Space Mono', monospace;
+            --font-sans: 'Roboto', sans-serif;
         }
 
         body.light-mode {
-            --bg-primary: #f4f7f9;
-            --bg-secondary: #ffffff;
-            --bg-sidebar: #ffffff;
-            --bg-feature: #ffffff;
-            --bg-button: rgba(105, 77, 229, 0.25);
-            --bg-button-hover: #5038b3;
-            --text-primary: #5f6c7b;
-            --text-headings: #1d2d35;
-            --text-button: #4338ca;
+            --bg-primary: #f4f7fa;
+            --bg-secondary: rgba(255, 255, 255, 0.7);
+            --bg-sidebar: rgba(255, 255, 255, 0.95);
+            --bg-button-hover: rgba(105, 77, 229, 0.1);
+            --bg-keyword: #eef2ff;
+            --bg-image-container: rgba(0, 0, 0, 0.03);
+
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-headings: #1a202c;
+            --text-button: #5a43c8;
+
             --accent-primary: #694de5;
-            --border-button-hover: #694de5;
-            --border-divider: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --accent-glow: rgba(105, 77, 229, 0.4);
+            --accent-cyan: #009688; 
+            --border-divider: rgba(105, 77, 229, 0.2);
         }
 
         /* Base and Reset */
-        *, *::before, *::after { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; cursor: none; }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg-primary);
             color: var(--text-primary);
             margin: 0;
             overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            position: relative;
+            min-height: 100vh;
         }
 
+        /* --- Custom Sci-Fi Cursor --- */
+        #cursor-dot, #cursor-ring {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 100000; pointer-events: none;
+        }
+        #cursor-dot {
+            width: 6px; height: 6px; background-color: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary); transition: width 0.2s, height 0.2s, background-color 0.3s;
+        }
+        #cursor-ring {
+            width: 30px; height: 30px; border: 1px solid var(--accent-primary);
+            transition: width 0.3s ease-out, height 0.3s ease-out, border-color 0.3s;
+        }
+        body:hover #cursor-dot { opacity: 1; }
+
+        /* --- Deep Space Canvas & Layers --- */
+        #space-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -3; pointer-events: none; transition: opacity 0.5s ease;
+        }
+        body.light-mode #space-canvas { opacity: 0.15; }
+
+        .bg-nebula {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 80% 20%, rgba(163, 105, 255, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+            z-index: -2; pointer-events: none; transition: background 0.5s ease;
+        }
+        body.light-mode .bg-nebula {
+            background: radial-gradient(circle at 80% 10%, rgba(255, 220, 120, 0.3) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 80%, rgba(100, 200, 255, 0.2) 0%, transparent 60%);
+        }
+
+        .scanline {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 51%);
+            background-size: 100% 4px; z-index: 9999; pointer-events: none; opacity: 0.4; transition: opacity 0.5s;
+        }
+        body.light-mode .scanline { opacity: 0.1; }
+
         /* Typography and Links */
-        h1, h2, h3, h4, h5 { color: var(--text-headings); font-weight: 700; line-height: 1.2; margin: 0 0 1rem 0; transition: color 0.3s ease; }
-        h1 { font-size: 2.5rem; }
-        h2 { font-size: 2rem; }
-        p { margin: 0 0 1rem 0; line-height: 1.7; }
-        a { color: var(--accent-primary); text-decoration: none; transition: color 0.2s ease; }
-        a:hover { color: var(--text-headings); }
+        h1, h2, h3 { 
+            font-family: var(--font-mono); color: var(--text-headings); 
+            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 1rem 0;
+            transition: color 0.5s ease;
+        }
+        h1 { font-size: 3rem; text-shadow: 0 0 20px var(--accent-glow); margin-bottom: 0.5rem; }
+        p { margin: 0 0 1rem 0; line-height: 1.8; font-weight: 300; transition: color 0.5s ease; }
+        a { color: var(--accent-primary); text-decoration: none; transition: all 0.3s ease; }
+        a:hover { color: var(--accent-cyan); text-shadow: 0 0 10px var(--accent-glow); }
         
         /* Header for Subpage */
         #page-header {
             position: sticky; top: 0;
             background: var(--bg-sidebar);
-            padding: 0.75em 1.5em;
+            padding: 1em 2em;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: var(--shadow);
-            transition: background-color 0.3s ease;
+            border-bottom: 1px solid var(--border-divider);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: background 0.5s, border-color 0.5s;
         }
         #page-header .back-link {
-            color: var(--text-primary);
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.2s ease;
-            position: relative;
-            padding: 0.5em 0;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
-        #page-header .back-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 1px;
-            background-color: var(--accent-primary);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease-out;
-        }
-        #page-header .back-link:hover::after {
-            transform: scaleX(1);
+        #page-header .back-link:hover {
+            color: var(--text-headings);
+            text-shadow: 0 0 10px var(--accent-glow);
         }
         #page-header .back-link .fa-fw {
             margin-right: 0.5em;
+            color: var(--accent-primary);
+        }
+
+        /* Glitch Title */
+        .glitch-wrapper {
+            position: relative; display: inline-block; user-select: none;
+        }
+        .glitch-wrapper::before, .glitch-wrapper::after {
+            content: 'VISUAL_DATABANK'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent; opacity: 0; pointer-events: none;
+        }
+        .glitch-wrapper:hover::before {
+            left: 2px; text-shadow: -2px 0 var(--accent-cyan); clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse; opacity: 1;
+        }
+        .glitch-wrapper:hover::after {
+            left: -2px; text-shadow: -2px 0 var(--accent-primary); clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse; opacity: 1;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(15px, 9999px, 86px, 0); }
+            100% { clip: rect(94px, 9999px, 2px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            100% { clip: rect(10px, 9999px, 50px, 0); }
         }
         
         /* Main Content Wrapper */
         .wrapper { padding: 4em 3em; animation: fadeIn 1s ease-out; }
-        .inner { max-width: 45em; margin: 0 auto; }
+        .inner { max-width: 65em; margin: 0 auto; text-align: center; }
+
+        /* Secret Upload Section */
+        #upload-section {
+            margin: 2em 0 3em 0;
+            display: none; /* 默认隐藏 */
+            animation: fadeIn 0.5s ease;
+            padding: 1.5em;
+            border: 1px dashed var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 4px;
+        }
+        .upload-btn {
+            font-family: var(--font-mono); display: inline-flex; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.4); color: var(--text-headings);
+            padding: 12px 24px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+            border: 1px solid var(--accent-cyan); border-radius: 2px;
+            transition: all 0.3s ease; text-decoration: none; position: relative; overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1) inset;
+        }
+        .upload-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.4s ease;
+        }
+        .upload-btn:hover {
+            background: var(--accent-cyan); color: #000; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); border-color: transparent;
+        }
+        .upload-btn:hover::before { left: 100%; }
+        .upload-btn i { margin-right: 8px; }
         
-        /* Gallery Grid (Masonry) */
+        /* Gallery Grid (Masonry) with Sci-Fi borders */
         .gallery-grid {
             column-count: 3;
-            column-gap: 1.5em;
+            column-gap: 2em;
+            margin-top: 3em;
         }
         .gallery-item {
             break-inside: avoid;
-            margin-bottom: 1.5em;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 2em;
+            border: 1px solid var(--border-divider);
+            padding: 5px;
+            background: var(--bg-image-container);
             position: relative;
-            background-color: var(--bg-feature);
+            transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.3s;
+            animation: fadeIn 0.5s ease-out;
         }
-        .gallery-item::after {
-            content: '\f00e'; /* Font Awesome search-plus icon */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            color: white;
-            font-size: 2rem;
-            background-color: rgba(0,0,0,0.5);
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+        
+        /* Sci-Fi Corner Brackets */
+        .gallery-item::before, .gallery-item::after, .gallery-item .bracket-helper::before, .gallery-item .bracket-helper::after {
+            content: ''; position: absolute; width: 15px; height: 15px; border: 2px solid var(--accent-cyan); pointer-events: none; opacity: 0; transition: opacity 0.3s; z-index: 2;
         }
+        .gallery-item:hover::before, .gallery-item:hover::after, .gallery-item:hover .bracket-helper::before, .gallery-item:hover .bracket-helper::after { opacity: 1; }
+        .gallery-item::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .gallery-item::after { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .gallery-item .bracket-helper { position: absolute; inset: 0; pointer-events: none; z-index: 2;}
+        .gallery-item .bracket-helper::before { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .gallery-item .bracket-helper::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
         .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 25px -5px var(--accent-primary);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 30px var(--accent-glow);
+            border-color: var(--accent-primary);
         }
-        .gallery-item:hover::after {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
+        
         .gallery-item img {
             width: 100%;
             height: auto;
             display: block;
+            filter: grayscale(40%) contrast(1.1);
+            transition: filter 0.5s;
+        }
+        .gallery-item:hover img {
+            filter: grayscale(0%) contrast(1);
         }
 
-        /* Lightbox Modal */
-        #lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            z-index: 10002;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2em;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        #lightbox.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-        #lightbox.active img {
-            transform: scale(1);
-        }
-        .lightbox-close {
+        /* Hover Overlay */
+        .gallery-item .overlay {
             position: absolute;
-            top: 2em;
-            right: 2em;
-            font-size: 2rem;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.2s ease;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            background: rgba(10, 8, 18, 0.7);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
+            backdrop-filter: blur(2px);
         }
-        .lightbox-close:hover {
-            transform: scale(1.2);
+        .gallery-item:hover .overlay { opacity: 1; }
+        .gallery-item .overlay i {
+            color: var(--accent-cyan);
+            font-size: 2.5rem;
+            text-shadow: 0 0 15px var(--accent-cyan);
+            transform: scale(0.5);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .gallery-item:hover .overlay i { transform: scale(1); }
+
+        /* Lightbox Modal Sci-Fi Style */
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+            z-index: 10002; display: flex; justify-content: center; align-items: center;
+            padding: 2em; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        #lightbox.active { opacity: 1; pointer-events: auto; }
+        .lightbox-content {
+            position: relative;
+            border: 1px solid var(--accent-cyan);
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #lightbox.active .lightbox-content { transform: scale(1); }
+        
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            display: block;
+        }
+        
+        .lightbox-close {
+            position: absolute; top: -40px; right: 0;
+            font-family: var(--font-mono); font-size: 1.2rem;
+            color: var(--accent-cyan); cursor: pointer; transition: all 0.2s ease;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .lightbox-close:hover { color: #fff; text-shadow: 0 0 10px var(--accent-cyan); }
 
         /* Theme Toggle */
         .theme-switch-wrapper { display: flex; align-items: center; justify-content: center; }
-        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; }
+        .theme-switch { display: inline-block; height: 24px; position: relative; width: 48px; }
         .theme-switch input { display:none; }
-        .slider { background-color: #4a426b; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
+        .slider { background-color: transparent; border: 1px solid var(--border-divider); bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
         .slider:before {
-            content: "\f186"; font-family: "Font Awesome 6 Free"; font-weight: 900;
-            color: #28233f;
-            display: flex; align-items: center; justify-content: center;
-            background-color: #fff; bottom: 4px; height: 18px; left: 4px;
-            position: absolute; width: 18px; transition: .4s;
+            content: "\f186"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 10px;
+            color: var(--bg-primary); display: flex; align-items: center; justify-content: center;
+            background-color: var(--accent-primary); bottom: 3px; height: 16px; left: 3px; position: absolute; width: 16px; transition: .4s;
         }
-        input:checked + .slider { background-color: #ccc; }
+        input:checked + .slider { border-color: var(--accent-primary); }
         input:checked + .slider:before { content: "\f185"; transform: translateX(24px); }
-        .slider.round { border-radius: 34px; }
-        .slider.round:before { border-radius: 50%; }
 
-        /* Animated Background */
-        .background-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .background-shapes li {
-            position: absolute; display: block; list-style: none; width: 20px; height: 20px;
-            background: rgba(163, 105, 255, 0.15); animation: float 25s linear infinite; bottom: -150px;
-        }
-        body.light-mode .background-shapes li { background: rgba(105, 77, 229, 0.1); border: none; }
-        body.light-mode .background-shapes li:nth-child(2), body.light-mode .background-shapes li:nth-child(5), body.light-mode .background-shapes li:nth-child(7), body.light-mode .background-shapes li:nth-child(9) {
-            background: transparent; border: 2px solid rgba(105, 77, 229, 0.15);
-        }
-        .background-shapes li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-        .background-shapes li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
-        .background-shapes li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-        .background-shapes li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-        .background-shapes li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
-        .background-shapes li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
-        .background-shapes li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
-        .background-shapes li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
-        .background-shapes li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; background: transparent; border: 2px solid rgba(163, 105, 255, 0.25); }
-        .background-shapes li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
-        
         /* Animations */
-        @keyframes float { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
         /* Responsive */
-        @media (max-width: 980px) {
-            .gallery-grid {
-                column-count: 2;
-            }
-        }
-
+        @media (max-width: 980px) { .gallery-grid { column-count: 2; } }
         @media (max-width: 736px) {
-            h1 { font-size: 2rem; }
-            .wrapper { padding: 2em 1em; }
-            .gallery-grid {
-                column-count: 1;
-            }
+            h1 { font-size: 2.2rem; }
+            .wrapper { padding: 3em 1.5em; }
+            .gallery-grid { column-count: 1; }
         }
     </style>
 </head>
 <body>
     
-    <ul class="background-shapes">
-       <li></li> <li></li> <li></li> <li></li> <li></li>
-       <li></li> <li></li> <li></li> <li></li> <li></li>
-    </ul>
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Space Environment Layers -->
+    <canvas id="space-canvas"></canvas>
+    <div class="bg-nebula"></div>
+    <div class="scanline"></div>
 
     <!-- Header -->
     <header id="page-header">
-        <a href="index.html" class="back-link"><i class="fas fa-arrow-left fa-fw"></i> Back to Portfolio</a>
+        <a href="index.html" class="back-link"><i class="fas fa-satellite fa-fw"></i> SYS.BACK_TO_MAIN</a>
         <div class="theme-switch-wrapper">
-            <label class="theme-switch" for="theme-toggle">
+            <label class="theme-switch" for="theme-toggle" title="Toggle UI Mode">
                 <input type="checkbox" id="theme-toggle" />
-                <span class="slider round"></span>
+                <span class="slider"></span>
             </label>
         </div>
     </header>
@@ -276,20 +357,78 @@
     <div class="wrapper">
         <div class="inner">
 
-            <h1>My Art Gallery</h1>
-            <p style="color: var(--text-secondary); max-width: 65ch;">Beyond the world of design and technology, painting is a passion that allows me to explore creativity in a different medium. Here is a selection of my works.</p>
+            <!-- Title: Secret Upload Trigger attached here -->
+            <h1 id="gallery-title" class="glitch-wrapper">VISUAL_DATABANK</h1>
+            <p style="font-family: var(--font-mono); color: var(--accent-cyan); font-size: 0.9em;">
+                // SECONDARY PROTOCOL: ARTWORK AND CREATIVE EXPERIMENTS
+            </p>
+            <p style="color: var(--text-secondary); max-width: 65ch; margin: 1em auto;">
+                Beyond the logic of data and algorithms, painting is a passion that allows me to explore spatial geometry and emotional resonance in a different medium.
+            </p>
 
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="images/gallery/IMG_0172.JPG" alt="Painting 1"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0173.JPG" alt="Painting 2"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0174.JPG" alt="Painting 3"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0175.JPG" alt="Painting 4"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0176.JPG" alt="Painting 5"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0177.JPG" alt="Painting 6"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0178.JPG" alt="Painting 7"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0180.JPG" alt="Painting 8"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0181.JPG" alt="Painting 9"></div>
-                <div class="gallery-item"><img src="images/gallery/IMG_0182.JPG" alt="Painting 10"></div>
+            <!-- Upload Interface (Hidden by default, Requires Clearance) -->
+            <div id="upload-section">
+                <p style="font-family: var(--font-mono); color: var(--accent-cyan); font-size: 0.8rem; margin-bottom: 10px;">
+                    > UPLOAD_MODULE_UNLOCKED // SELECT FILES TO INJECT
+                </p>
+                <label for="image-upload" class="upload-btn">
+                    <i class="fas fa-cloud-upload-alt"></i> INITIATE UPLOAD
+                </label>
+                <input type="file" id="image-upload" accept="image/*" multiple style="display: none;">
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Existing gallery items -->
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0172.JPG" alt="Painting 1">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0173.JPG" alt="Painting 2">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0174.JPG" alt="Painting 3">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0175.JPG" alt="Painting 4">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0176.JPG" alt="Painting 5">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0177.JPG" alt="Painting 6">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0178.JPG" alt="Painting 7">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0180.JPG" alt="Painting 8">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0181.JPG" alt="Painting 9">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="bracket-helper"></div>
+                    <img src="images/gallery/IMG_0182.JPG" alt="Painting 10">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                </div>
             </div>
 
         </div>
@@ -297,60 +436,257 @@
     
     <!-- Lightbox Modal -->
     <div id="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img id="lightbox-img" src="">
+        <div class="lightbox-content">
+            <span class="lightbox-close">[ CLOSE ]</span>
+            <img id="lightbox-img" src="">
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const body = document.body;
-            const themeToggle = document.getElementById('theme-toggle');
+            
+            // --- Custom Cursor Logic (Imported from main page) ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorRing = document.getElementById('cursor-ring');
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let ringX = mouseX;
+            let ringY = mouseY;
+            
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+                
+                const target = e.target;
+                if(target.tagName.toLowerCase() === 'a' || target.closest('.upload-btn') || target.closest('.gallery-item') || target.closest('.lightbox-close') || target.id === 'gallery-title') {
+                    cursorRing.style.width = '45px';
+                    cursorRing.style.height = '45px';
+                    cursorRing.style.borderColor = 'var(--accent-cyan)';
+                    cursorDot.style.backgroundColor = 'var(--accent-cyan)';
+                    cursorDot.style.boxShadow = '0 0 10px var(--accent-cyan)';
+                } else {
+                    cursorRing.style.width = '30px';
+                    cursorRing.style.height = '30px';
+                    cursorRing.style.borderColor = 'var(--accent-primary)';
+                    cursorDot.style.backgroundColor = 'var(--accent-primary)';
+                    cursorDot.style.boxShadow = '0 0 10px var(--accent-primary)';
+                }
+            });
+
+            function animateCursor() {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // --- Space Canvas Background (Imported from main page) ---
+            const canvas = document.getElementById('space-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, stars = [], shootingStars = [];
+
+            function initCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                stars = [];
+                shootingStars = [];
+                const numStars = window.innerWidth < 768 ? 100 : 250;
+                for(let i = 0; i < numStars; i++) {
+                    stars.push({
+                        x: Math.random() * width, y: Math.random() * height,
+                        radius: Math.random() * 1.5 + 0.5, baseX: Math.random() * width, baseY: Math.random() * height,
+                        speed: Math.random() * 0.05 + 0.01, depth: Math.random() * 3 + 1,
+                        color: `rgba(${Math.floor(Math.random()*100)+155}, ${Math.floor(Math.random()*100)+155}, 255, ${Math.random()*0.8 + 0.2})`,
+                        type: Math.random() > 0.85 ? 'flare' : 'circle', rotation: Math.random() * Math.PI 
+                    });
+                }
+            }
+            
+            let targetPx = 0, targetPy = 0, currentPx = 0, currentPy = 0;
+            window.addEventListener('mousemove', (e) => {
+                targetPx = (e.clientX - width / 2) * 0.05;
+                targetPy = (e.clientY - height / 2) * 0.05;
+            });
+
+            function spawnShootingStar() {
+                shootingStars.push({
+                    x: Math.random() * width * 1.5, y: Math.random() * height * -0.5,
+                    len: Math.random() * 60 + 30, speed: Math.random() * 12 + 8,
+                    thickness: Math.random() * 1.5 + 0.5, opacity: Math.random() * 0.5 + 0.5,
+                    decay: Math.random() * 0.02 + 0.008, color: Math.random() > 0.5 ? '#00f0ff' : '#a369ff'
+                });
+            }
+
+            function drawStars() {
+                ctx.clearRect(0, 0, width, height);
+                currentPx += (targetPx - currentPx) * 0.1;
+                currentPy += (targetPy - currentPy) * 0.1;
+
+                stars.forEach(star => {
+                    star.baseY -= star.speed;
+                    if(star.baseY < 0) { star.baseY = height; star.baseX = Math.random() * width; }
+                    star.x = star.baseX - (currentPx / star.depth);
+                    star.y = star.baseY - (currentPy / star.depth);
+                    if (star.x < 0) star.x += width;
+                    if (star.x > width) star.x -= width;
+
+                    if (star.type === 'flare') {
+                        star.rotation += star.speed * 0.1;
+                        ctx.save();
+                        ctx.translate(star.x, star.y);
+                        ctx.rotate(star.rotation);
+                        ctx.globalAlpha = Math.max(0.1, Math.abs(Math.sin(star.baseY * 0.02))); 
+                        ctx.fillStyle = star.color;
+                        ctx.beginPath(); ctx.ellipse(0, 0, star.radius * 4, star.radius * 0.5, 0, 0, Math.PI * 2); ctx.fill();
+                        ctx.beginPath(); ctx.ellipse(0, 0, star.radius * 0.5, star.radius * 4, 0, 0, Math.PI * 2); ctx.fill();
+                        ctx.restore();
+                    } else {
+                        ctx.beginPath(); ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = star.color; ctx.fill();
+                    }
+                });
+
+                if (Math.random() < 0.015) spawnShootingStar();
+                for (let i = shootingStars.length - 1; i >= 0; i--) {
+                    let ss = shootingStars[i];
+                    ss.x -= ss.speed; ss.y += ss.speed; ss.opacity -= ss.decay;
+                    if (ss.opacity <= 0) { shootingStars.splice(i, 1); continue; }
+                    ctx.save();
+                    ctx.globalAlpha = ss.opacity;
+                    let gradient = ctx.createLinearGradient(ss.x, ss.y, ss.x + ss.len, ss.y - ss.len);
+                    gradient.addColorStop(0, ss.color); gradient.addColorStop(1, 'transparent'); 
+                    ctx.beginPath(); ctx.moveTo(ss.x, ss.y); ctx.lineTo(ss.x + ss.len, ss.y - ss.len);
+                    ctx.strokeStyle = gradient; ctx.lineWidth = ss.thickness; ctx.stroke();
+                    ctx.restore();
+                }
+                requestAnimationFrame(drawStars);
+            }
+            window.addEventListener('resize', initCanvas);
+            initCanvas();
+            drawStars();
 
             // --- Theme Switcher ---
+            const themeToggle = document.getElementById('theme-toggle');
             const currentTheme = localStorage.getItem('theme');
             function setTheme(theme) {
                 if (theme === 'light') {
                     body.classList.add('light-mode');
                     themeToggle.checked = true;
+                    ctx.globalAlpha = 0.2; 
                 } else {
                     body.classList.remove('light-mode');
                     themeToggle.checked = false;
+                    ctx.globalAlpha = 1;
                 }
                 localStorage.setItem('theme', theme);
             }
-            if (currentTheme) {
-                setTheme(currentTheme);
-            }
-            themeToggle.addEventListener('change', () => {
-                setTheme(themeToggle.checked ? 'light' : 'dark');
-            });
+            if (currentTheme) setTheme(currentTheme);
+            themeToggle.addEventListener('change', () => { setTheme(themeToggle.checked ? 'light' : 'dark'); });
 
             // --- Lightbox Logic ---
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
-            const galleryItems = document.querySelectorAll('.gallery-item');
             const closeBtn = document.querySelector('.lightbox-close');
+            const galleryGrid = document.getElementById('gallery-grid');
 
-            galleryItems.forEach(item => {
+            const attachLightboxEvent = (item) => {
                 item.addEventListener('click', () => {
                     const imgSrc = item.querySelector('img').src;
                     lightboxImg.src = imgSrc;
                     lightbox.classList.add('active');
                 });
-            });
-
-            const closeLightbox = () => {
-                lightbox.classList.remove('active');
             };
 
+            document.querySelectorAll('.gallery-item').forEach(item => attachLightboxEvent(item));
+
+            const closeLightbox = () => lightbox.classList.remove('active');
             closeBtn.addEventListener('click', closeLightbox);
             lightbox.addEventListener('click', (e) => {
-                if (e.target !== lightboxImg) {
-                    closeLightbox();
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            // --- Secret Admin Upload Logic ---
+            let titleClickCount = 0;
+            let clickTimer;
+            const galleryTitle = document.getElementById('gallery-title');
+            const uploadSection = document.getElementById('upload-section');
+
+            galleryTitle.addEventListener('click', () => {
+                titleClickCount++;
+                clearTimeout(clickTimer);
+                
+                // If clicked 3 times rapidly
+                if (titleClickCount >= 3) {
+                    titleClickCount = 0; // Reset
+                    const passcode = prompt("SYS.ADMIN_LOGIN_REQUIRED\nPLEASE ENTER ACCESS CODE:");
+                    
+                    // The secret passcode is "SHU2025"
+                    if (passcode === "SHU2025") {
+                        uploadSection.style.display = 'block';
+                        // Show a subtle sci-fi alert using standard alert
+                        alert("ACCESS GRANTED. UPLOAD MODULE ONLINE.");
+                    } else if (passcode !== null) {
+                        alert("ACCESS DENIED. INCORRECT CODE.");
+                    }
                 }
+
+                // Reset counter if clicking is too slow
+                clickTimer = setTimeout(() => { titleClickCount = 0; }, 1500);
+            });
+
+            const imageUploadInput = document.getElementById('image-upload');
+            
+            // +++ 新增：从本地存储加载已保存的图片 +++
+            const savedArtworks = JSON.parse(localStorage.getItem('saved_artworks') || '[]');
+            
+            // 渲染已保存的图片函数
+            const renderSavedImage = (imgSrc) => {
+                const newGalleryItem = document.createElement('div');
+                newGalleryItem.className = 'gallery-item';
+                newGalleryItem.innerHTML = `
+                    <div class="bracket-helper"></div>
+                    <img src="${imgSrc}" alt="Uploaded Artwork">
+                    <div class="overlay"><i class="fas fa-expand"></i></div>
+                `;
+                attachLightboxEvent(newGalleryItem);
+                galleryGrid.prepend(newGalleryItem);
+            };
+
+            // 页面加载时，把保存的图片渲染出来
+            savedArtworks.forEach(src => renderSavedImage(src));
+
+            imageUploadInput.addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (!files || files.length === 0) return;
+
+                Array.from(files).forEach(file => {
+                    if (!file.type.startsWith('image/')) return;
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const base64Data = event.target.result;
+                        
+                        // 1. 渲染到页面
+                        renderSavedImage(base64Data);
+                        
+                        // 2. 保存到浏览器的 LocalStorage
+                        try {
+                            savedArtworks.push(base64Data);
+                            localStorage.setItem('saved_artworks', JSON.stringify(savedArtworks));
+                        } catch (error) {
+                            console.error("Storage error:", error);
+                            alert("SYS_ERROR: 本地存储空间已满 (5MB限制)。图片仅在当前会话可见。");
+                            // 如果满了，就把刚加进去的移除，避免后续保存一直报错
+                            savedArtworks.pop(); 
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+                imageUploadInput.value = '';
             });
         });
     </script>
 </body>
 </html>
-
